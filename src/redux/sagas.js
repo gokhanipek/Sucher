@@ -8,12 +8,12 @@ import {
     receiveApiDataAction,
  } from "./actions";
 
-export function* getSearchRepoRequest() {
+export function* getSearchRepoRequest(action) {
       try {
         const response = yield axios.get("https://api.github.com/search/repositories",
             {
                 params: {
-                    q: 'vakaren',
+                    q: action.data,
                     sort: 'stars',
                     order: 'desc'
                 }

@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import { connect } from "react-redux";
 import { get } from 'lodash';
 import { getSearchRepoRequest } from '../../redux/actions';
+import ResultCard from '../ResultCard/ResultCard';
 
 
 const Search = ({getSearchRepoRequest, searchResults}) => {
-    console.warn(searchResults);
     const [ searchTerm, setSearchTerm ] = useState('');
 
     const submitHandler = (e) => {
@@ -22,22 +22,22 @@ const Search = ({getSearchRepoRequest, searchResults}) => {
 
 
     return (
-        <div class="row">
+        <div className="row">
             <form onSubmit={submitHandler}>
-                <div class="input-field col s6">
-                <input placeholder="Placeholder" id="first_name" type="text" class="validate" onChange={handleChange} />
-                <label for="first_name">First Name</label>
+                <div className="input-field col s6">
+                <input placeholder="Type a repo name..." id="first_name" type="text" className="validate" onChange={handleChange} />
                 </div>
-                <button class="btn waves-effect waves-light" type="submit" name="action">
-                    <i class="material-icons right">send</i>
+                <button className="btn waves-effect waves-light" type="submit" name="action">
+                    <i className="material-icons right">send</i>
                 </button>
             </form>
+            {searchResults.map(item => <ResultCard item={item} />)}
         </div>
     )
 }
 
 const mapDispatchToProps = dispatch =>({
-    getSearchRepoRequest: () => dispatch(getSearchRepoRequest())
+    getSearchRepoRequest: (data) => dispatch(getSearchRepoRequest(data))
 })
 
 const mapStateToProps = ({data}) => ({ 
