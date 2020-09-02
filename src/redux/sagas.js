@@ -19,7 +19,6 @@ export function* getSearchRepoRequest() {
                 }
             }
         );
-        console.warn(response.data);
         const { data } = response;
         yield put(receiveApiDataAction(data));
       } catch (e) {
