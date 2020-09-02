@@ -10,7 +10,15 @@ import {
 
 export function* getSearchRepoRequest() {
       try {
-        const response = yield axios.get("https://api.github.com/search/repositories?q=tetris+language:assembly&sort=stars&order=desc");
+        const response = yield axios.get("https://api.github.com/search/repositories",
+            {
+                params: {
+                    q: 'vakaren',
+                    sort: 'stars',
+                    order: 'desc'
+                }
+            }
+        );
         console.warn(response.data);
         const { data } = response;
         yield put(receiveApiDataAction(data));
