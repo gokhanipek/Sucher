@@ -8,16 +8,15 @@ const ResultCard = ({item}) => {
             <div className="result-card-information">
                  <h2 className="repo-name">{item.name}
                     <span className="repo-owner">
-                        <a href={item.owner.html_url} target="_blank" rel="noopener noreferrer">{item.owner.login}</a>
-                    </span>
-                    <span className="repo-fullname">
-                        {item.full_name}
+                        <a className="teal-text" href={item.owner.html_url} target="_blank" rel="noopener noreferrer">{item.owner.login}</a> - {item.full_name}
                     </span>
                 </h2>
-                 <p className="repo-language">{item.language}</p>
-                 <p className="repo-stars">{item.stargazers_count}</p>
+                <div className="repo-card-bottom-info">
+                    <p className="repo-stars"><i class="material-icons yellow-text">star</i>{item.stargazers_count}</p>
+                    <p className="repo-language">{item.language}</p>
+                </div>
             </div>
-            <a href={item.url} target="_blank" rel="noopener noreferrer">Go to link</a>
+            <a className="btn result-card-link" href={item.url} target="_blank" rel="noopener noreferrer">Go to link</a>
         </div>
     )
 }

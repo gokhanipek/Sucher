@@ -1,4 +1,72 @@
 .result-card-wrapper {
     width: 100%;
-    padding: 10px 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    max-height: 110px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 1px 0px #26a69a;
+    transition: 0.2s ease-out;
+    .result-card-image {
+        display: flex;
+        align-self: flex-start;
+        width: 110px;
+        opacity: 0.7;
+        transition: 0.4s;
+    }
+    &:hover {
+        box-shadow: 0 0 5px 0px #26a69a;
+        .result-card-image {
+            opacity: 1;
+        }
+    }
+}
+
+.result-card-information {
+    display: flex;
+    padding: 5px 10px;
+    flex-direction: column;
+    width: calc(100% - 100px);
+}
+
+
+
+.repo-name {
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+
+.repo-owner, .repo-fullname {
+    font-size: 12px;
+}
+
+.result-card-link {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.repo-card-bottom-info {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+}
+
+.repo-language, .repo-stars {
+    display: inline-flex;
+    margin-right: 10px;
+    align-items: center;
 }

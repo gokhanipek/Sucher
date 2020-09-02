@@ -1,0 +1,13 @@
+.form-container {
+    margin: 0 auto;
+}
+
+.form-input-container {
+    position: relative;
+    .form-button {
+        position: absolute;
+        right: 10px;
+        bottom: 8px;
+        box-shadow: none;
+    }
+}
