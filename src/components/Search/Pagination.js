@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import './Search.scss';
 
 const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
     const pageNumbers = [];
@@ -11,13 +12,12 @@ const Pagination = ({ postsPerPage, totalPosts, paginate }) => {
         <ul className="pagination">
             {pageNumbers.map(pageNumber => (
                 <li key={pageNumber} className="page-item">
-                    <a
+                    <span
                         onClick={() => paginate(pageNumber)}
-                        href="!#"
                         className="page-link"
                     >
                         {pageNumber}
-                    </a>
+                    </span>
                 </li>
             ))}
       </ul>
