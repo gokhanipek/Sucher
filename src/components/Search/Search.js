@@ -5,7 +5,7 @@ import { getSearchRepoRequest } from '../../redux/actions';
 import Results from './../Results/Results';
 import Pagination from './Pagination';
 import './Search.scss';
-const Search = ({getSearchRepoRequest, searchResults}) => {
+const Search = ({getSearchRepoRequest, searchResultsItems, searchResult}) => {
     
     const [ searchTerm, setSearchTerm ] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
@@ -13,8 +13,8 @@ const Search = ({getSearchRepoRequest, searchResults}) => {
     const [results, setSearchResults] = useState([]);
     
     useEffect(() => {
-        setSearchResults(searchResults)
-    }, [searchResults]);
+        setSearchResults(searchResultsItems)
+    }, [searchResultsItems]);
     
 
     const indexOfLastItem = currentPage * resultsPerPage;
@@ -54,7 +54,7 @@ const Search = ({getSearchRepoRequest, searchResults}) => {
                         paginate={paginate}
                     />
                 }
-                {results.length === 0 && 
+                { searchResult.items && results.length === 0 && 
                     <p>No results</p>
                 }
             </form>
@@ -65,6 +65,7 @@ const mapDispatchToProps = dispatch =>({
     getSearchRepoRequest: (data) => dispatch(getSearchRepoRequest(data))
 })
 const mapStateToProps = ({data}) => ({ 
-    searchResults: get(data, 'searchResults.items', [])
+    searchResultsItems: get(data, 'searchResults.items', []),
+    searchResult: get(data, 'searchResults', {})
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Search);
