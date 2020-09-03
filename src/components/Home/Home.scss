@@ -1,5 +1,9 @@
 .wrapper {
     width: 100%;
-    height: 100vh;
-    text-align: center;
+    position: absolute;
+    margin-top: 200px;
+    transition: 0.4s;
+    &.top {
+        margin-top: 20px;
+    }
 }
