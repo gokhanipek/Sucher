@@ -9,7 +9,7 @@ import './Home.scss';
 
 const Home = ({searchResults}) => {
     return (
-        <div className= {`wrapper ${searchResults.length > 0  &&  'top'}`} wrapper>
+        <div className= {`wrapper ${searchResults.length > 0 ? 'top' : ''}`} wrapper>
             <div className="container">
                 <Logo />
                 <Search />
