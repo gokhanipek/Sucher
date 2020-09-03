@@ -16,7 +16,7 @@ const ResultCard = ({item}) => {
                     <p className="repo-language">{item.language}</p>
                 </div>
             </div>
-            <a className="btn result-card-link" href={item.url} target="_blank" rel="noopener noreferrer">Go to link</a>
+            <a className="btn result-card-link" href={item.svn_url} target="_blank" rel="noopener noreferrer">Go to link</a>
         </div>
     )
 }
