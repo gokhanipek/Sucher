@@ -12,7 +12,7 @@ const ResultCard = ({item}) => {
                     </span>
                 </h2>
                 <div className="repo-card-bottom-info">
-                    <p className="repo-stars"><i class="material-icons yellow-text">star</i>{item.stargazers_count}</p>
+                    <p className="repo-stars"><i className="material-icons yellow-text">star</i>{item.stargazers_count}</p>
                     <p className="repo-language">{item.language}</p>
                 </div>
             </div>
