@@ -12,9 +12,11 @@ export function* getSearchRepoRequest(action) {
         const response = yield axios.get("https://api.github.com/search/repositories",
             {
                 params: {
-                    q: action.data,
+                    q: action.data.query,
                     sort: 'stars',
-                    order: 'desc'
+                    order: 'desc',
+                    page: action.data.page,
+                    per_page: 20
                 }
             }
         );

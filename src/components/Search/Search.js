@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from "react-redux";
 import { get } from 'lodash';
+import ReactPaginate from 'react-paginate';
 import { getSearchRepoRequest } from '../../redux/actions';
 import Results from './../Results/Results';
-import Pagination from './Pagination';
 import './Search.scss';
 const Search = ({getSearchRepoRequest, searchResultsItems, searchResult}) => {
     
     const [ searchTerm, setSearchTerm ] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
-    const [resultsPerPage] = useState(25);
     const [results, setSearchResults] = useState([]);
     
     useEffect(() => {
@@ -17,24 +16,36 @@ const Search = ({getSearchRepoRequest, searchResultsItems, searchResult}) => {
     }, [searchResultsItems]);
     
 
-    const indexOfLastItem = currentPage * resultsPerPage;
-    const indexOfFirstItem = indexOfLastItem - resultsPerPage;
-    const currentItems = results.slice(indexOfFirstItem, indexOfLastItem);
-    const submitHandler = (e) => {
+     const submitHandler = (e) => {
         e.preventDefault();
         const query = encodeURIComponent(searchTerm.trim());
         if (query === '') return;
-        getSearchRepoRequest(query);
+        const searchParameters = {
+            query,
+            page: 1
+        }
+        getSearchRepoRequest(searchParameters);
     };
 
     const handleChange = event => {
         setSearchTerm(event.target.value);
     };
 
-    const paginate = pageNumber => {
-        setCurrentPage(pageNumber);
-    };
     
+    
+    const paginate = e => {
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        const selectedPage = e.selected;
+        setCurrentPage(selectedPage);
+        const query = encodeURIComponent(searchTerm.trim());
+        if (query === '') return;
+        const searchParameters = {
+            query,
+            page: selectedPage + 1
+        }
+        getSearchRepoRequest(searchParameters);
+    };
+
     return (
         <div className="row">
             <form className="col s12 m8 l6 offset-m2 offset-l3 form-container" onSubmit={submitHandler}>
@@ -46,13 +57,20 @@ const Search = ({getSearchRepoRequest, searchResultsItems, searchResult}) => {
                         </button>
                     </div>
                 </div>
-                <Results searchResults={currentItems} />
-                {results.length > 25 &&
-                    <Pagination
-                        postsPerPage={resultsPerPage}
-                        totalPosts={results.length}
-                        paginate={paginate}
-                    />
+                <Results searchResults={results} />
+                {searchResult.total_count > currentPage*20 &&
+                    <ReactPaginate
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        pageCount={searchResult.total_count/20 > 50 ? 50 : searchResult.total_count/20}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={paginate}
+                        containerClassName={'pagination'}
+                        subContainerClassName={'pages pagination'}
+                        activeClassName={'active'}
+                        />
+
                 }
                 { searchResult.items && results.length === 0 && 
                     <p>No results</p>
@@ -62,7 +80,7 @@ const Search = ({getSearchRepoRequest, searchResultsItems, searchResult}) => {
     )
 }
 const mapDispatchToProps = dispatch =>({
-    getSearchRepoRequest: (data) => dispatch(getSearchRepoRequest(data))
+    getSearchRepoRequest: (query, currentPage) => dispatch(getSearchRepoRequest(query, currentPage))
 })
 const mapStateToProps = ({data}) => ({ 
     searchResultsItems: get(data, 'searchResults.items', []),
